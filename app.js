@@ -34,7 +34,7 @@ let upgrades = [
   {name: "upgradeThree",
    power: 10,
    auto: 10,
-   cost: 200,
+   cost: 200
   },
   {name: "upgradeFour",
    power: 20,
@@ -93,7 +93,7 @@ function drawStore(){
     `
     } else if(i == 0 || i % 2 == 0){
       template += `
-      <div class ="row">
+      <div class ="row text-center">
         <div class="col-6">
           <button class="btn btn-primary">${upgrade.name}</button> ${upgrade.cost}  
         </div>
@@ -126,7 +126,27 @@ function addResource(){
 
 // calculates how much resource on click
 function pPower(){
-
+  let i = 0
+  player.inventory.forEach(item =>{
+  if(i > 0){
+    let itemPower = upgrades.find(upgrade => upgrade.name == player.inventory[i].name).power
+    let itemAuto = upgrades.find(upgrade => upgrade.name == player.inventory[i].name).auto
+    switch(item.name){
+      case "resource":
+        break;
+      case "upgradeOne":
+      case "upgradeTwo":
+      case "upgradeThree":
+      case "upgradeFour":
+        player.power += item.amount*itemPower
+        player.auto += item.amount*itemAuto
+        break;
+      }
+    i++
+  } else{
+    i++
+  }
+  })
 }
 
 // increments by auto values that the player has 
