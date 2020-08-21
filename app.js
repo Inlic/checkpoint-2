@@ -12,7 +12,7 @@ let player = {
     {name: "upgradeOne",
      amount: 0},
     {name: "upgradeTwo",
-     amount: 0},
+     amount: 2},
     {name: "upgradeThree", 
      amount: 0},
     {name: "upgradeFour",
@@ -56,7 +56,7 @@ function drawStats(){
   </div>
   <div class="row">
     <div class="col-12">
-     Auto Per Second: ${player.auto}
+     Auto Per 3 Seconds: ${player.auto}
     </div>
   </div>   
   `
@@ -119,12 +119,12 @@ function drawStore(){
 
 // on click
 function addResource(){
-  pPower()
-  player.resource += player.power
-  console.log(player.resource)
+  player.inventory[0].amount += player.power
+  console.log(player.inventory[0].amount)
 }
 
 // calculates how much resource on click
+// run at start, run after buy, don't run on click
 function pPower(){
   let i = 0
   player.inventory.forEach(item =>{
@@ -149,12 +149,21 @@ function pPower(){
   })
 }
 
+// this on buy
+
+
+
 // increments by auto values that the player has 
 function autoAdd(){
-
+  player.inventory[0].amount += player.auto
+  console.log(player.inventory[0].amount)
+  drawInv()
 }
+// interval update every 3 seconds, enable after finished
+/*setInterval(autoAdd,3000)*/
 
 
 drawStats()
 drawInv()
 drawStore()
+pPower()
