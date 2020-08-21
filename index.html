@@ -12,13 +12,28 @@
 </head>
 <body>
 
-<header class="container-fluid">
+<header class="container-fluid text-center bg-primary">
   <h1>Some Header Text</h1>
 </header>
 <main class="container-fluid">
-  <div>Some body text</div>
+  <div class="row text-center">
+    <div id="stat-tracker" class="bg-secondary col-4">
+
+    </div>
+    <div id="clickable-object" class="col-4">
+      <img onclick="addResource()" src="//placehold.it/200x200">
+    </div>
+    <div id="inventory-tracker" class="col-4">
+     
+    </div>
+  </div>
+  <div class="row text-center">
+    <div id="store" class="col-5">
+      
+    </div>
+  </div>
 </main>
-<footer class="container-fluid">
+<footer class="container-fluid text-center bg-primary">
   <h1>Some Footer Text</h1>
 </footer>
 

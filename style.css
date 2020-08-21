@@ -1,3 +1,10 @@
+/* troubleshooting outline */
+* {
+  outline: 1px solid red;
+}
+
+
+/* standard header */
 body{
   min-height:100vh;
   display: flex;
