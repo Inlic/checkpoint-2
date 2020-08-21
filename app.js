@@ -8,11 +8,11 @@ let player = {
   power: 1,
   inventory: [
     {name: "resource",
-     amount: 0},
+     amount: 1000},
     {name: "upgradeOne",
      amount: 0},
     {name: "upgradeTwo",
-     amount: 2},
+     amount: 0},
     {name: "upgradeThree", 
      amount: 0},
     {name: "upgradeFour",
@@ -87,7 +87,7 @@ function drawStore(){
     if(i == (upgrades.length-1)){
     template += `
       <div class="col-6">
-        <button class="btn btn-primary">${upgrade.name}</button> ${upgrade.cost}  
+        <button class="btn btn-primary" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> ${upgrade.cost}  
       </div>
     </div>
     `
@@ -95,13 +95,13 @@ function drawStore(){
       template += `
       <div class ="row text-center">
         <div class="col-6">
-          <button class="btn btn-primary">${upgrade.name}</button> ${upgrade.cost}  
+          <button class="btn btn-primary" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> ${upgrade.cost}  
         </div>
     `
     } else{
       template += `
       <div class="col-6">
-        <button class="btn btn-primary">${upgrade.name}</button> ${upgrade.cost}  
+        <button class="btn btn-primary" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> ${upgrade.cost}  
       </div>
     </div>
     `
@@ -111,22 +111,19 @@ function drawStore(){
   store.innerHTML = template
 }
 
-
-
-//Click and buy functions
-
-
-
 // on click
 function addResource(){
   player.inventory[0].amount += player.power
   console.log(player.inventory[0].amount)
+  drawInv()
 }
 
 // calculates how much resource on click
 // run at start, run after buy, don't run on click
 function pPower(){
   let i = 0
+  player.power = 1
+  player.auto = 0
   player.inventory.forEach(item =>{
   if(i > 0){
     let itemPower = upgrades.find(upgrade => upgrade.name == player.inventory[i].name).power
@@ -149,18 +146,27 @@ function pPower(){
   })
 }
 
-// this on buy
-
-
+//Click and buy functions
+function buyItem(name,cost){
+  if(cost > player.inventory[0].amount) {return}
+  else{
+    player.inventory[0].amount -= cost
+    player.inventory.find(item => item.name == name).amount += 1
+    drawInv()
+    pPower()
+    drawStats()
+  }
+}
 
 // increments by auto values that the player has 
 function autoAdd(){
   player.inventory[0].amount += player.auto
+  // TODO remove log statement in production
   console.log(player.inventory[0].amount)
   drawInv()
 }
 // interval update every 3 seconds, enable after finished
-/*setInterval(autoAdd,3000)*/
+setInterval(autoAdd,3000)
 
 
 drawStats()
