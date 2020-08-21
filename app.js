@@ -152,6 +152,8 @@ function buyItem(name,cost){
   else{
     player.inventory[0].amount -= cost
     player.inventory.find(item => item.name == name).amount += 1
+    upgrades.find(upgrade => upgrade.name == name).cost = Math.floor(upgrades.find(upgrade => upgrade.name == name).cost *=1.25)
+    drawStore()
     drawInv()
     pPower()
     drawStats()
@@ -166,7 +168,8 @@ function autoAdd(){
   drawInv()
 }
 // interval update every 3 seconds, enable after finished
-setInterval(autoAdd,3000)
+//TODO set interval to on in finished project
+//setInterval(autoAdd,3000)
 
 
 drawStats()
