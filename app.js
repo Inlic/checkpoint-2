@@ -7,36 +7,36 @@ let player = {
   auto: 0,
   power: 1,
   inventory: [
-    {name: "gold",
-     amount: 1000},
-    {name: "upgradeOne",
+    {name: "Gold",
      amount: 0},
-    {name: "upgradeTwo",
+    {name: "Torch",
      amount: 0},
-    {name: "upgradeThree", 
+    {name: "Pick",
      amount: 0},
-    {name: "upgradeFour",
+    {name: "Mine Cart", 
+     amount: 0},
+    {name: "Dynamite",
      amount: 0}
   ]
 }
 
 let upgrades = [
-  {name: "upgradeOne",
+  {name: "Torch",
    power: 3,
    auto: 0,
    cost: 50
   },
-  {name: "upgradeTwo",
+  {name: "Pick",
    power: 1,
    auto: 5,
    cost: 100
   },
-  {name: "upgradeThree",
+  {name: "Mine Cart",
    power: 10,
    auto: 10,
    cost: 200
   },
-  {name: "upgradeFour",
+  {name: "Dynamite",
    power: 20,
    auto: 30,
    cost: 500
@@ -134,6 +134,7 @@ function drawStore(){
 // on click
 function addResource(){
   player.inventory[0].amount += player.power
+  // TODO remove this log on finished product
   console.log(player.inventory[0].amount)
   drawInv()
 }
@@ -149,12 +150,12 @@ function pPower(){
     let itemPower = upgrades.find(upgrade => upgrade.name == player.inventory[i].name).power
     let itemAuto = upgrades.find(upgrade => upgrade.name == player.inventory[i].name).auto
     switch(item.name){
-      case "gold":
+      case "Gold":
         break;
-      case "upgradeOne":
-      case "upgradeTwo":
-      case "upgradeThree":
-      case "upgradeFour":
+      case "Torch":
+      case "Pick":
+      case "Mine Cart":
+      case "Dynamite":
         player.power += item.amount*itemPower
         player.auto += item.amount*itemAuto
         break;

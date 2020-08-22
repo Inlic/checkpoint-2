@@ -16,6 +16,7 @@ header, footer{
 img {
   height: 500px;
   width: 500px;
+  user-select: none;
 }
 
 @keyframes pulse {
@@ -85,11 +86,11 @@ main{
 .btn.s-btn{
   border: 5px outset goldenrod;
   background-color: sienna;
-  color: grey;
-  text-shadow: -1px 1px 0 black,
-                1px 1px 0  black,
-                1px -1px 0  black,
-                -1px -1px 0  black;
+  color: gold;
+  text-shadow: -1px 1px 0 slategrey,
+                1px 1px 0  slategrey,
+                1px -1px 0  slategrey,
+                -1px -1px 0  slategrey;
 }
 
 
