@@ -73,24 +73,41 @@ main{
 }
 
 .s-box{
-
+  color: goldenrod;
+  text-shadow: -1px 1px 0 black,
+                1px 1px 0  black,
+                1px -1px 0  black,
+                -1px -1px 0  black;
+  background-color: peru;
+  border: 5px ridge saddlebrown; 
 }
 
+.btn.s-btn{
+  border: 5px outset goldenrod;
+  background-color: sienna;
+  color: grey;
+  text-shadow: -1px 1px 0 black,
+                1px 1px 0  black,
+                1px -1px 0  black,
+                -1px -1px 0  black;
+}
+
+
 .sideb{
-  border-left: 5px solid saddlebrown;
-  border-right: 5px solid saddlebrown;
+  border-left: 5px ridge saddlebrown;
+  border-right: 5px ridge saddlebrown;
 }
 
 .topb{
-  border-left: 5px solid saddlebrown;
-  border-right: 5px solid saddlebrown;
-  border-top: 5px solid saddlebrown;
+  border-left: 5px ridge saddlebrown;
+  border-right: 5px ridge saddlebrown;
+  border-top: 5px ridge saddlebrown;
   border-bottom: 2px groove saddlebrown;
 }
 
 .botb{
-  border-left: 5px solid saddlebrown;
-  border-right: 5px solid saddlebrown;
-  border-bottom: 5px solid saddlebrown;
+  border-left: 5px ridge saddlebrown;
+  border-right: 5px ridge saddlebrown;
+  border-bottom: 5px ridge saddlebrown;
 }
 

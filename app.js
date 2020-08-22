@@ -106,22 +106,22 @@ function drawStore(){
   upgrades.forEach(upgrade =>{
     if(i == (upgrades.length-1)){
     template += `
-      <div class="col-6">
-        <button class="btn btn-primary" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> ${upgrade.cost}  
+      <div class="col-6 s-box p-2">
+        <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
       </div>
     </div>
     `
     } else if(i == 0 || i % 2 == 0){
       template += `
       <div class ="row text-left">
-        <div class="col-6">
-          <button class="btn btn-primary" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> ${upgrade.cost}  
+        <div class="col-6 s-box p-2">
+          <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
         </div>
     `
     } else{
       template += `
-      <div class="col-6">
-        <button class="btn btn-primary" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> ${upgrade.cost}  
+      <div class="col-6 s-box p-2">
+        <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
       </div>
     </div>
     `
