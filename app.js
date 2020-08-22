@@ -8,6 +8,7 @@ let player = JSON.parse(localStorage.getItem("playerData")) || {
   power: 1,
   inventory: [
     {name: "Gold",
+    //TODO change gold to 0 when done testing
      amount: 49},
     {name: "Torch",
      amount: 0},
