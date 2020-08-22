@@ -1,4 +1,4 @@
-//data objects and pageload resources
+//data objects and pageload resource
 let statTracker = document.getElementById("stat-tracker")
 let invTracker = document.getElementById("inventory-tracker")
 let store = document.getElementById("store")
@@ -7,7 +7,7 @@ let player = {
   auto: 0,
   power: 1,
   inventory: [
-    {name: "resource",
+    {name: "gold",
      amount: 1000},
     {name: "upgradeOne",
      amount: 0},
@@ -50,12 +50,12 @@ let upgrades = [
 function drawStats(){
   let template = `
   <div class="row">
-    <div class="offset-2 col-8 bg-secondary">
+    <div class="offset-2 col-8 p-box topb">
      Player Power: ${player.power}
     </div>
   </div>
   <div class="row">
-    <div class="offset-2 col-8 bg-secondary">
+    <div class="offset-2 col-8 p-box botb">
      Auto Per 3 Seconds: ${player.auto}
     </div>
   </div>   
@@ -67,14 +67,34 @@ function drawStats(){
 //draw inventory
 function drawInv(){
   let template = ""
+  let i = 0
   player.inventory.forEach(item => {
+    if(i == 0){
     template +=  `
     <div class="row">
-      <div class="offset-2 col-8 bg-secondary">
+      <div class="offset-2 col-8 topb i-box">
        ${item.name} : ${item.amount}
       </div>
     </div>
     `
+    } else if(i == (player.inventory.length-1)){
+      template +=  `
+    <div class="row">
+      <div class="offset-2 col-8 botb i-box">
+       ${item.name} : ${item.amount}
+      </div>
+    </div>
+    `
+    } else{
+      template +=  `
+    <div class="row">
+      <div class="offset-2 col-8 sideb i-box">
+       ${item.name} : ${item.amount}
+      </div>
+    </div>
+    `
+    }
+    i++
   })
   invTracker.innerHTML = template
 }
@@ -129,7 +149,7 @@ function pPower(){
     let itemPower = upgrades.find(upgrade => upgrade.name == player.inventory[i].name).power
     let itemAuto = upgrades.find(upgrade => upgrade.name == player.inventory[i].name).auto
     switch(item.name){
-      case "resource":
+      case "gold":
         break;
       case "upgradeOne":
       case "upgradeTwo":
