@@ -1,14 +1,22 @@
-/* troubleshooting outline */
+/* troubleshooting outline
 * {
   outline: 1px solid red;
-}
+}*/
 
+img {
+  height: 500px;
+  width: 400px;
+}
 
 /* standard header */
 body{
   min-height:100vh;
   display: flex;
   flex-direction: column;
+  background-image: url(/assets/mountain.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 main{

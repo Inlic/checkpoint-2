@@ -50,12 +50,12 @@ let upgrades = [
 function drawStats(){
   let template = `
   <div class="row">
-    <div class="col-12">
+    <div class="offset-2 col-8 bg-secondary">
      Player Power: ${player.power}
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
+    <div class="offset-2 col-8 bg-secondary">
      Auto Per 3 Seconds: ${player.auto}
     </div>
   </div>   
@@ -70,7 +70,7 @@ function drawInv(){
   player.inventory.forEach(item => {
     template +=  `
     <div class="row">
-      <div class="col-12">
+      <div class="offset-2 col-8 bg-secondary">
        ${item.name} : ${item.amount}
       </div>
     </div>
@@ -93,7 +93,7 @@ function drawStore(){
     `
     } else if(i == 0 || i % 2 == 0){
       template += `
-      <div class ="row text-center">
+      <div class ="row text-left">
         <div class="col-6">
           <button class="btn btn-primary" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> ${upgrade.cost}  
         </div>
