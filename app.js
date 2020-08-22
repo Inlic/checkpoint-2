@@ -8,12 +8,12 @@ let player = JSON.parse(localStorage.getItem("playerData")) || {
   power: 1,
   inventory: [
     {name: "Gold",
-     amount: 0},
+     amount: 49},
     {name: "Torch",
      amount: 0},
     {name: "Pick",
      amount: 0},
-    {name: "Mine Cart", 
+    {name: "Mine-Cart", 
      amount: 0},
     {name: "Dynamite",
      amount: 0}
@@ -31,7 +31,7 @@ let upgrades = JSON.parse(localStorage.getItem("upgradeData")) || [
    auto: 5,
    cost: 100
   },
-  {name: "Mine Cart",
+  {name: "Mine-Cart",
    power: 10,
    auto: 10,
    cost: 200
@@ -43,6 +43,16 @@ let upgrades = JSON.parse(localStorage.getItem("upgradeData")) || [
   }
 ]
 
+let hidden = localStorage = JSON.parse(localStorage.getItem("hiddenData")) || [
+  {name: "Torch",
+   hidden: true},
+   {name: "Pick",
+   hidden: true},
+   {name: "Mine-Cart",
+   hidden: true},
+   {name: "Dynamite",
+   hidden: true},
+]
 
 //Draw functions
 
@@ -106,7 +116,7 @@ function drawStore(){
   upgrades.forEach(upgrade =>{
     if(i == (upgrades.length-1)){
     template += `
-      <div class="col-6 s-box p-2">
+      <div id='${upgrade.name}' class="col-6 s-box p-2 d-none">
         <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
       </div>
     </div>
@@ -114,13 +124,13 @@ function drawStore(){
     } else if(i == 0 || i % 2 == 0){
       template += `
       <div class ="row text-left">
-        <div class="col-6 s-box p-2">
+        <div id='${upgrade.name}' class="col-6 s-box p-2 d-none">
           <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
         </div>
     `
     } else{
       template += `
-      <div class="col-6 s-box p-2">
+      <div id='${upgrade.name}' class="col-6 s-box p-2 d-none">
         <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
       </div>
     </div>
@@ -131,11 +141,34 @@ function drawStore(){
   store.innerHTML = template
 }
 
+// store hiding functions
+
+function checkHidden(){
+  upgrades.forEach(upgrade => {
+    if(player.inventory[0].amount >= upgrade.cost){
+      hidden.find(item => item.name == upgrade.name).hidden = false
+    }
+  });
+  localStorage.setItem("hiddenData",JSON.stringify(hidden))
+}
+
+function revealHidden(){
+  hidden.forEach(item => {
+    if(item.hidden == false){
+      document.getElementById(item.name).classList.remove("d-none")
+    }    
+  });
+}
+
+
+
 // on click
 function addResource(){
   player.inventory[0].amount += player.power
   // TODO remove this log on finished product
   console.log(player.inventory[0].amount)
+  checkHidden()
+  revealHidden()
   drawInv()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
@@ -155,7 +188,7 @@ function pPower(){
         break;
       case "Torch":
       case "Pick":
-      case "Mine Cart":
+      case "Mine-Cart":
       case "Dynamite":
         player.power += item.amount*itemPower
         player.auto += item.amount*itemAuto
@@ -175,7 +208,9 @@ function buyItem(name,cost){
     player.inventory[0].amount -= cost
     player.inventory.find(item => item.name == name).amount += 1
     upgrades.find(upgrade => upgrade.name == name).cost = Math.floor(upgrades.find(upgrade => upgrade.name == name).cost *=1.25)
+    checkHidden()
     drawStore()
+    revealHidden()
     drawInv()
     pPower()
     drawStats()
@@ -188,7 +223,9 @@ function buyItem(name,cost){
 function autoAdd(){
   player.inventory[0].amount += player.auto
   // TODO remove log statement in production
-  console.log(player.inventory[0].amount)
+  //console.log(player.inventory[0].amount)
+  checkHidden()
+  revealHidden()
   drawInv()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
@@ -199,5 +236,7 @@ setInterval(autoAdd,3000)
 
 drawStats()
 drawInv()
+checkHidden()
 drawStore()
+revealHidden()
 pPower()
