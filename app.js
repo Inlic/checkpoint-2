@@ -3,7 +3,7 @@ let statTracker = document.getElementById("stat-tracker")
 let invTracker = document.getElementById("inventory-tracker")
 let store = document.getElementById("store")
 
-let player = {
+let player = JSON.parse(localStorage.getItem("playerData")) || {
   auto: 0,
   power: 1,
   inventory: [
@@ -20,7 +20,7 @@ let player = {
   ]
 }
 
-let upgrades = [
+let upgrades = JSON.parse(localStorage.getItem("upgradeData")) || [
   {name: "Torch",
    power: 3,
    auto: 0,
@@ -137,6 +137,7 @@ function addResource(){
   // TODO remove this log on finished product
   console.log(player.inventory[0].amount)
   drawInv()
+  localStorage.setItem("playerData",JSON.stringify(player))
 }
 
 // calculates how much resource on click
@@ -178,6 +179,8 @@ function buyItem(name,cost){
     drawInv()
     pPower()
     drawStats()
+    localStorage.setItem("upgradeData",JSON.stringify(upgrades))
+    localStorage.setItem("playerData",JSON.stringify(player))
   }
 }
 
@@ -187,10 +190,11 @@ function autoAdd(){
   // TODO remove log statement in production
   console.log(player.inventory[0].amount)
   drawInv()
+  localStorage.setItem("playerData",JSON.stringify(player))
 }
 // interval update every 3 seconds, enable after finished
 //TODO set interval to on in finished project
-//setInterval(autoAdd,3000)
+setInterval(autoAdd,3000)
 
 
 drawStats()

@@ -10,7 +10,7 @@ header, footer{
                 1px 1px 0  saddlebrown,
                 1px -1px 0  saddlebrown,
                 -1px -1px 0  saddlebrown;
-  border: 5px solid goldenrod;
+  border: 5px ridge goldenrod;
 }
 
 img {
@@ -56,29 +56,29 @@ main{
 }
 
 .p-box {
-  color: goldenrod;
-  text-shadow: -1px 1px 0 black,
-                1px 1px 0  black,
-                1px -1px 0  black,
-                -1px -1px 0  black;
+  color: gold;
+  text-shadow: -1px 1px 0 saddlebrown,
+                1px 1px 0  saddlebrown,
+                1px -1px 0  saddlebrown,
+                -1px -1px 0  saddlebrown;
   background-color: peru;
 }
 
 .i-box{
-  color: goldenrod;
-  text-shadow: -1px 1px 0 black,
-                1px 1px 0  black,
-                1px -1px 0  black,
-                -1px -1px 0  black;
+  color: gold;
+  text-shadow: -1px 1px 0 saddlebrown,
+                1px 1px 0  saddlebrown,
+                1px -1px 0  saddlebrown,
+                -1px -1px 0  saddlebrown;
   background-color: peru;
 }
 
 .s-box{
-  color: goldenrod;
-  text-shadow: -1px 1px 0 black,
-                1px 1px 0  black,
-                1px -1px 0  black,
-                -1px -1px 0  black;
+  color: gold;
+  text-shadow: -1px 1px 0 saddlebrown,
+                1px 1px 0  saddlebrown,
+                1px -1px 0  saddlebrown,
+                -1px -1px 0  saddlebrown;
   background-color: peru;
   border: 5px ridge saddlebrown; 
 }
