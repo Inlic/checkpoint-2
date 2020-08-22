@@ -109,6 +109,9 @@ function drawInv(){
   invTracker.innerHTML = template
 }
 
+//TODO icons instead of numbers to track items?
+
+
 // draw store
 function drawStore(){
   let template = ""
@@ -160,10 +163,19 @@ function revealHidden(){
   });
 }
 
+// TODO add button disabling if item cannot be afforded
+
+
+// click timeout for input, adjusted image to input, and restyled
+function timeOut() {
+  document.getElementById("miner").disabled = true;
+  setTimeout(function() {document.getElementById("miner").disabled = false;},50);
+  }
 
 
 // on click
 function addResource(){
+  timeOut()
   player.inventory[0].amount += player.power
   // TODO remove this log on finished product
   console.log(player.inventory[0].amount)
@@ -229,9 +241,14 @@ function autoAdd(){
   drawInv()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
+//TODO consider adding timed bonuses for the auto multiplier, also consider increasing collection frequency and prevent the collection interval from being started more than once
+
+
 // interval update every 3 seconds, enable after finished
 //TODO set interval to on in finished project
 setInterval(autoAdd,3000)
+
+//TODO badges and achievement popups
 
 
 drawStats()
