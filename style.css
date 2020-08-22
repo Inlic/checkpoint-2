@@ -3,9 +3,40 @@
   outline: 1px solid red;
 }*/
 
+header, footer{
+  background-color: peru;
+  color: goldenrod;
+  text-shadow: -1px 1px 0 saddlebrown,
+                1px 1px 0  saddlebrown,
+                1px -1px 0  saddlebrown,
+                -1px -1px 0  saddlebrown;
+  border: 5px solid goldenrod;
+}
+
 img {
   height: 500px;
-  width: 400px;
+  width: 500px;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		filter: drop-shadow(2px 4px 20px gold);
+	}
+
+	70% {
+		transform: scale(1);
+		filter: drop-shadow(2px 4px 10px gold);
+	}
+
+	100% {
+		transform: scale(0.95);
+		filter: drop-shadow(2px 4px 5px gold);
+	}
+}
+
+img:hover{
+  animation: pulse 2s infinite;
 }
 
 /* standard header */
