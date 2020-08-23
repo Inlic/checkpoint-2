@@ -3,7 +3,7 @@
   outline: 1px solid red;
 }*/
 
-header, footer{
+header, footer, .achieve-box{
   background-color: peru;
   color: gold;
   text-shadow: -1px 1px 0 saddlebrown,

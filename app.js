@@ -2,6 +2,7 @@
 let statTracker = document.getElementById("stat-tracker")
 let invTracker = document.getElementById("inventory-tracker")
 let store = document.getElementById("store")
+let achieve = document.getElementById("achieve")
 
 let player = JSON.parse(localStorage.getItem("playerData")) || {
   auto: 0,
@@ -9,7 +10,7 @@ let player = JSON.parse(localStorage.getItem("playerData")) || {
   inventory: [
     {name: "Gold",
     //TODO change gold to 0 when done testing
-     amount: 49},
+     amount: 9999},
     {name: "Torch",
      amount: 0},
     {name: "Pick",
@@ -54,6 +55,19 @@ let hidden = localStorage = JSON.parse(localStorage.getItem("hiddenData")) || [
    {name: "Dynamite",
    hidden: true},
 ]
+
+let achievements = localStorage = JSON.parse(localStorage.getItem("messageData")) || [
+  {text: "Digger",
+   rgold: 1000,
+   earned: true},
+   {text: "Miner",
+   rgold: 10000,
+   earned: false},
+   {text: "Too Greedily and Too Deep",
+   rgold: 100000,
+   earned: false}
+]
+
 
 //Draw functions
 
@@ -167,12 +181,27 @@ function revealHidden(){
 // TODO add button disabling if item cannot be afforded
 
 
-// click timeout for input, adjusted image to input, and restyled
-function timeOut() {
-  document.getElementById("miner").disabled = true;
-  setTimeout(function() {document.getElementById("miner").disabled = false;},50);
-  }
+// draw achievement popups
 
+function drawAchiev(){
+  console.log("function read")
+  let template = ""
+  achievements.forEach(achievement => {
+     if(player.inventory[0].amount >= achievement.rgold && achievement.earned == false){
+        template += `
+        <div class="row">
+          <div class="col-10 p-1 achieve-box">
+            Achievement: ${achievement.text} <img class="ml-3" src="/assets/ale.jpg" width="175" height="100"> 
+          </div>
+        </div>
+        `
+     }
+     console.log("for each loop read")
+   });
+  achieve.innerHTML = template
+}
+
+// remove achievement popup
 
 // on click
 function addResource(){
@@ -185,6 +214,13 @@ function addResource(){
   drawInv()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
+
+// click timeout for addResource, adjusted image to input, and restyled
+function timeOut() {
+  document.getElementById("miner").disabled = true;
+  setTimeout(function() {document.getElementById("miner").disabled = false;},50);
+  }
+
 
 // calculates how much resource on click
 // run at start, run after buy, don't run on click
@@ -247,7 +283,7 @@ function autoAdd(){
 
 // interval update every 3 seconds, enable after finished
 //TODO set interval to on in finished project
-setInterval(autoAdd,3000)
+//setInterval(autoAdd,3000)
 
 //TODO badges and achievement popups
 
@@ -258,3 +294,6 @@ checkHidden()
 drawStore()
 revealHidden()
 pPower()
+
+
+drawAchiev()
