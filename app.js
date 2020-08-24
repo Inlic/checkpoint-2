@@ -9,7 +9,6 @@ let player = JSON.parse(localStorage.getItem("playerData")) || {
   power: 1,
   inventory: [
     {name: "Gold",
-    //TODO change gold to 0 when done testing
      amount: 0},
     {name: "Torch",
      amount: 0},
@@ -127,7 +126,7 @@ function drawInv(){
   invTracker.innerHTML = template
 }
 
-//TODO icons instead of numbers to track items?
+//TODO  future change icons instead of numbers to track items
 
 
 // draw store
@@ -181,7 +180,7 @@ function revealHidden(){
   });
 }
 
-// TODO add button disabling if item cannot be afforded
+// Disable button if item cannot be bought
 
 function toggleItem(){
   upgrades.forEach(upgrade => {
@@ -207,7 +206,7 @@ function drawAchiev(){
               Achievement: ${achievement.text} 
             </div>
             <div class="col-4 p-1">
-              <img src="/assets/ale.jpg" width="175" height="100">
+              <img src="/checkpoint-2/assets/ale.jpg" width="175" height="100">
             </div> 
           </div>
         </div>
@@ -228,8 +227,6 @@ function sawAchieve(id){
 function addResource(){
   timeOut()
   player.inventory[0].amount += player.power
-  // TODO remove this log on finished product
-  console.log(player.inventory[0].amount)
   checkHidden()
   revealHidden()
   drawInv()
@@ -295,12 +292,11 @@ function buyItem(name,cost){
 // increments by auto values that the player has 
 function autoAdd(){
   player.inventory[0].amount += player.auto
-  // TODO remove log statement in production
-  //console.log(player.inventory[0].amount)
   checkHidden()
   revealHidden()
   drawInv()
   drawAchiev()
+  toggleItem()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
 //TODO consider adding timed bonuses for the auto multiplier, also consider increasing collection frequency and prevent the collection interval from being started more than once
@@ -308,7 +304,9 @@ function autoAdd(){
 
 // interval update every 3 seconds, enable after finished
 //TODO set interval to on in finished project
-//setInterval(autoAdd,3000)
+setInterval(autoAdd,3000)
+
+// RUN ON STARTUP
 
 drawStats()
 drawInv()
