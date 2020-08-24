@@ -10,7 +10,7 @@ let player = JSON.parse(localStorage.getItem("playerData")) || {
   inventory: [
     {name: "Gold",
     //TODO change gold to 0 when done testing
-     amount: 999},
+     amount: 0},
     {name: "Torch",
      amount: 0},
     {name: "Pick",
@@ -138,7 +138,7 @@ function drawStore(){
     if(i == (upgrades.length-1)){
     template += `
       <div id='${upgrade.name}' class="col-6 s-box p-2 d-none">
-        <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
+        <button id='${upgrade.name}-btn' class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
       </div>
     </div>
     `
@@ -146,13 +146,13 @@ function drawStore(){
       template += `
       <div class ="row text-left">
         <div id='${upgrade.name}' class="col-6 s-box p-2 d-none">
-          <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
+          <button id='${upgrade.name}-btn' class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
         </div>
     `
     } else{
       template += `
       <div id='${upgrade.name}' class="col-6 s-box p-2 d-none">
-        <button class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
+        <button id='${upgrade.name}-btn' class="btn s-btn mr-3" onclick="buyItem('${upgrade.name}','${upgrade.cost}')">${upgrade.name}</button> Cost: ${upgrade.cost}  
       </div>
     </div>
     `
@@ -183,8 +183,19 @@ function revealHidden(){
 
 // TODO add button disabling if item cannot be afforded
 
+function toggleItem(){
+  upgrades.forEach(upgrade => {
+    if(player.inventory[0].amount < upgrade.cost){
+    document.getElementById(upgrade.name+"-btn").disabled = true;
+    } else{
+    document.getElementById(upgrade.name+"-btn").disabled = false;
+    }
+  })
+}
+
 
 // draw achievement popups
+// TODO persistent achievement box
 
 function drawAchiev(){
   let template = ""
@@ -213,7 +224,6 @@ function sawAchieve(id){
   drawAchiev()
 }
 
-
 // on click
 function addResource(){
   timeOut()
@@ -224,6 +234,7 @@ function addResource(){
   revealHidden()
   drawInv()
   drawAchiev()
+  toggleItem()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
 
@@ -275,6 +286,7 @@ function buyItem(name,cost){
     drawInv()
     pPower()
     drawStats()
+    toggleItem()
     localStorage.setItem("upgradeData",JSON.stringify(upgrades))
     localStorage.setItem("playerData",JSON.stringify(player))
   }
@@ -296,10 +308,7 @@ function autoAdd(){
 
 // interval update every 3 seconds, enable after finished
 //TODO set interval to on in finished project
-setInterval(autoAdd,3000)
-
-//TODO badges and achievement popups
-
+//setInterval(autoAdd,3000)
 
 drawStats()
 drawInv()
@@ -307,6 +316,5 @@ checkHidden()
 drawStore()
 revealHidden()
 pPower()
-
-
 drawAchiev()
+toggleItem()
