@@ -10,7 +10,7 @@ let player = JSON.parse(localStorage.getItem("playerData")) || {
   inventory: [
     {name: "Gold",
     //TODO change gold to 0 when done testing
-     amount: 9999},
+     amount: 999},
     {name: "Torch",
      amount: 0},
     {name: "Pick",
@@ -56,14 +56,17 @@ let hidden = localStorage = JSON.parse(localStorage.getItem("hiddenData")) || [
    hidden: true},
 ]
 
-let achievements = localStorage = JSON.parse(localStorage.getItem("messageData")) || [
+let achievements = localStorage = JSON.parse(localStorage.getItem("achievementData")) || [
   {text: "Digger",
+   idtext: "digger",
    rgold: 1000,
-   earned: true},
+   earned: false},
    {text: "Miner",
+   idtext: "miner",
    rgold: 10000,
    earned: false},
    {text: "Too Greedily and Too Deep",
+   idtext: "too-g-and-too-d",
    rgold: 100000,
    earned: false}
 ]
@@ -184,24 +187,32 @@ function revealHidden(){
 // draw achievement popups
 
 function drawAchiev(){
-  console.log("function read")
   let template = ""
   achievements.forEach(achievement => {
      if(player.inventory[0].amount >= achievement.rgold && achievement.earned == false){
         template += `
-        <div class="row">
-          <div class="col-10 p-1 achieve-box">
-            Achievement: ${achievement.text} <img class="ml-3" src="/assets/ale.jpg" width="175" height="100"> 
+        <div id='${achievement.idtext}' class="row achieve-box align-items-center justify-content-around" onclick="sawAchieve('${achievement.idtext}')"> 
+          <div class="text-left col-4 p-1">
+              Achievement: ${achievement.text} 
+            </div>
+            <div class="col-4 p-1">
+              <img src="/assets/ale.jpg" width="175" height="100">
+            </div> 
           </div>
         </div>
         `
      }
-     console.log("for each loop read")
    });
   achieve.innerHTML = template
 }
 
 // remove achievement popup
+function sawAchieve(id){
+  achievements.find(achievement=>achievement.idtext == id).earned = true;
+  localStorage.setItem("achievementData",JSON.stringify(achievements))
+  drawAchiev()
+}
+
 
 // on click
 function addResource(){
@@ -212,6 +223,7 @@ function addResource(){
   checkHidden()
   revealHidden()
   drawInv()
+  drawAchiev()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
 
@@ -276,6 +288,7 @@ function autoAdd(){
   checkHidden()
   revealHidden()
   drawInv()
+  drawAchiev()
   localStorage.setItem("playerData",JSON.stringify(player))
 }
 //TODO consider adding timed bonuses for the auto multiplier, also consider increasing collection frequency and prevent the collection interval from being started more than once
@@ -283,7 +296,7 @@ function autoAdd(){
 
 // interval update every 3 seconds, enable after finished
 //TODO set interval to on in finished project
-//setInterval(autoAdd,3000)
+setInterval(autoAdd,3000)
 
 //TODO badges and achievement popups
 
